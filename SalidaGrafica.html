@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jesus Alfonso Arias">
+    <title>GeoBiomas · Bootstrap v5.0</title>
+    <link rel="stylesheet" href="./Leaflet.MousePosition-master/src/L.Control.MousePosition.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...tu_código_de_integridad..." crossorigin="anonymous"  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../Leaflet.AnimatedSearchBox-master/Leaflet.AnimatedSearchBox-master/src/Leaflet.AnimatedSearchBox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...tu_código_de_integridad..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-sidebar-v2/css/leaflet-sidebar.min.css" />
+
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="pricing.css" rel="stylesheet">
+
+
+
+
+    <style>
+        #map {
+            height: 87.5%;
+            width: 100%;
+        }
+        
+        .leaflet-popup-content-wrapper {
+            width: 420 px;
+            height: 400 px;
+        }
+        
+        iframe {
+            width: 400px;
+            height: 350px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./Leaflet.MousePosition-master/src/L.Control.MousePosition.js"></script>
+    <script src="./leaflet-geoserver-request-master/leaflet-geoserver-request-master/src/L.Geoserver.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+
+
+
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="check" viewBox="0 0 16 16">
+    <title>Check</title>
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+</svg>
+
+    <div class="container py-3">
+        <header>
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <img src="logo.png" alt="Logo" class="logo" style="width: 100px; height: auto;">
+                    <span class="fs-9">GeoVisor</span>
+                </a>
+
+                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">Inicio</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">Sobre Nosotros</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">Contactenos</a>
+                    <a class="py-2 text-dark text-decoration-none" href="#">Precios</a>
+                </nav>
+            </div>
+            <!--  
+            <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+                <h1 class="display-4 fw-normal">Pricing</h1>
+                <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">Free</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>10 users included</li>
+                                <li>2 GB of storage</li>
+                                <li>Email support</li>
+                                <li>Help center access</li>
+                            </ul>
+                            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">Pro</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>20 users included</li>
+                                <li>10 GB of storage</li>
+                                <li>Priority email support</li>
+                                <li>Help center access</li>
+                            </ul>
+                            <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-white bg-primary border-primary">
+                            <h4 class="my-0 fw-normal">Enterprise</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>30 users included</li>
+                                <li>15 GB of storage</li>
+                                <li>Phone and email support</li>
+                                <li>Help center access</li>
+                            </ul>
+                            <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="display-6 text-center mb-4">Compare plans</h2>
+
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th style="width: 34%;"></th>
+                            <th style="width: 22%;">Free</th>
+                            <th style="width: 22%;">Pro</th>
+                            <th style="width: 22%;">Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-start">Public</th>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Private</th>
+                            <td></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-start">Permissions</th>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Sharing</th>
+                            <td></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Unlimited members</th>
+                            <td></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Extra security</th>
+                            <td></td>
+                            <td></td>
+                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+-->
+
+
+            <div class="input-group mb-3 custom-div">
+                <div class="input-group-prepend">
+                    <select class="form-select" aria-label="Default select example" id="Capa_layer" style="font-size: 16px; color: #555; font-family: 'Arial', sans-serif;">
+            <option selected>Seleccione un layer</option>
+            <option value='Carto_Basica_cabecera Drenaj_L'>Cabecera drenaje L</option>
+            <option value="Carto_Basica_cabecera Drenaj_R">Cabecera drenaje R</option>
+            <option value="IntensidadMaximaEsperada">Intensidad maxima esperada</option>
+            <option value="IntensidadMaximaObservada">Intensidad maxima observada</option>
+            <option value="InventarioSismos">Inventarios sismos</option>
+            <option value="RasgosEstructurales">Rasgos estructurales</option>
+            <option value="Carto_Basica_cabecera DAgua_R">Cabecera drenaje agua R</option>
+            <option value="Carto_Basica_cabecera PerimetrosUrbanos">Cabecera Perimetros Urbanos</option>
+            <option value="UnidadGeologica">Unidad Geologica</option>
+        </select>
+
+                    <select class="form-select" aria-label="Default select example" id="Campo_layer">
+            <option selected>Seleccione un campo</option>
+            <option value="">Primero seleccione el layer</option>
+        </select>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with dropdown button" id="Filtro_Campo">
+            </div>
+
+
+
+            <div id="map"></div>
+            <script>
+                var map = L.map(
+                    'map', {
+                        zoomControl: true,
+                        attributionControl: false
+                    }).setView([4.87, -75.62], 12);
+
+                var filter = "";
+                var fields = "";
+                var search = "";
+                var wfsLayer;
+
+                // Función para actualizar el estado y realizar acciones adicionales
+                function updateFilter(value) {
+                    filter = value;
+                    updateDisplay();
+                }
+
+                function updateFields(value) {
+                    fields = value;
+                    updateDisplay();
+                }
+
+                function updateSearch(value) {
+                    search = value;
+                    updateDisplay();
+                }
+
+                function updateDisplay() {
+                    //  console.log(wfsLayer)
+                    // Elimina la capa existente antes de agregar la nueva
+                    if (wfsLayer) {
+                        map.removeLayer(wfsLayer);
+                        controlCapas.removeLayer(wfsLayer);
+                    }
+
+                    wfsLayer = L.Geoserver.wfs("http://localhost:8081/geoserver/wfs", {
+                        layers: `Manizales:${filter}`,
+                        style: {
+                            color: "blue",
+                            fillOpacity: "0",
+                            opacity: "0.5",
+                        },
+                        onEachFeature: function(feature, layer) {
+                            const diccionario = layer.feature.properties
+                            featureArray = Object.keys(diccionario)
+                            var selectOption = document.getElementById("Campo_layer");
+                            selectOption.innerHTML = "";
+
+                            const popupContent = generatePopupContent(feature);
+                            layer.bindPopup(popupContent);
+
+                            featureArray.forEach((featureArray) => {
+                                // Crea un nuevo elemento option
+                                const newOption = document.createElement("option");
+                                newOption.value = featureArray;
+                                newOption.text = featureArray;
+
+                                // Añade el nuevo elemento option al elemento select
+                                selectOption.appendChild(newOption);
+                            });
+
+
+                            //layer.bindPopup("Este layer tiene la información altura de : " + feature.properties.CNAltura + " y su numero de objeto es : " + feature.properties.OBJECTID);
+                        },
+                        CQL_FILTER: fields == "" ? "" : `${fields}=='${search}'`,
+                    });
+                    wfsLayer.addTo(map);
+                    controlCapas.addOverlay(wfsLayer, "WFS Layer")
+                }
+
+                // Agregar event listeners
+                document.getElementById("Capa_layer").addEventListener("change", function(event) {
+                    updateFilter(event.target.value);
+                });
+
+                document.getElementById("Campo_layer").addEventListener("change", function(event) {
+                    updateFields(event.target.value);
+                });
+
+                document.getElementById("Filtro_Campo").addEventListener("input", function(event) {
+                    updateSearch(event.target.value);
+                });
+
+                function generatePopupContent(feature) {
+                    const properties = feature.properties;
+                    const popupContent = [];
+
+                    // Agregar las propiedades al contenido del popup
+                    for (const prop in properties) {
+                        if (properties.hasOwnProperty(prop)) {
+                            popupContent.push(`<b>${prop}:</b> ${properties[prop]}`);
+                        }
+                    }
+
+                    // Puedes personalizar la presentación del contenido según tus necesidades
+                    // Simplemente se concatena todo en un string
+                    return popupContent.join('<br>');
+                }
+
+                var osm = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+                //var EsriMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
+
+                //var sateliteMap = L.tileLayer.provider('Esri.WorldImagery');
+
+                /*
+                        var wmsGeneralCab = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                                layers: ["Manizales:Carto_Basica_cabecera CNivel"],
+                                format: 'image/png',
+                                transparent: true
+                            }) //.addTo(map);
+                */
+                // definir una capa con wfs con todas sus capacidades
+                var wfsLayer = L.Geoserver.wfs("http://localhost:8081/geoserver/wfs", {
+                    layers: `Manizales:Carto_Basica_cabecera Drenaj_L`,
+                    style: {
+                        color: "black",
+                        fillOpacity: "0",
+                        opacity: "0.5",
+                    },
+                    onEachFeature: function(feature, layer) {
+                        layer.bindPopup("Este layer tiene la información altura de : " + feature.properties.CNAltura + " y su numero de objeto es : " + feature.properties.OBJECTID);
+                    },
+                    //CQL_FILTER: "district='Syangja'",
+                });
+                //wfsLayer.addTo(map);
+
+
+
+
+                //Carga de todos los layers wms 
+
+
+                var wmsGeneralCurv = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                        layers: ["Manizales:Carto_Basica_cabecera CNivel"],
+                        format: 'image/png',
+                        transparent: true
+                    }) //.addTo(map);
+
+                var wmsGeneralCurv1m = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                    layers: ["Manizales:Carto_Basica_cabecera CNivel_1m"],
+                    format: 'image/png',
+                    transparent: true
+                });
+
+                var wmsCabeceraCartoBasica = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                        layers: ["Manizales:Carto_Basica_cabecera Constr_R"],
+                        format: 'image/png',
+                        transparent: true
+                    }) //.addTo(map);
+
+                var wmsCabeceraCartoDAgua = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                        layers: ["Manizales:Carto_Basica_cabecera DAgua_R"],
+                        format: 'image/png',
+                        transparent: true
+                    }) //.addTo(map);
+
+                var wmsCabeceraCartoDrenajeEtiqueta = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                        layers: ["Manizales:Carto_Basica_cabecera Drenaj_Etiqueta"],
+                        format: 'image/png',
+                        transparent: true
+                    }) //.addTo(map);
+
+                var wmsCabeceraBasicaDrenajeL = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                    layers: ["Manizales:Carto_Basica_cabecera Drenaj_L"],
+                    format: 'image/png',
+                    transparent: true
+                });
+
+                var wmsCabeceraBasicaDrenajeR = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                    layers: ["Manizales:Carto_Basica_cabecera Drenaj_R"],
+                    format: 'image/png',
+                    transparent: true
+                });
+                var wmsUnidadGeologica = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                        layers: ["Manizales:UnidadGeologica"],
+                        format: 'image/png',
+                        transparent: true
+                    }) //.addTo(map);
+
+
+                // prueba de subir shape y editar en arcgis 
+                var wmsMundo = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wfs?", {
+                    layers: ["Manizales:Paises_Mundo_export"],
+                    format: 'image/png',
+                    transparent: true
+                }).addTo(map);
+
+
+
+
+
+                // definir las capas base que se pueden seleccionar
+                var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'
+                });
+
+                // Objeto de capas base
+                var capasBase = {
+                    "OpenStreetMap": osm,
+                    "osmHOT": osmHOT,
+                };
+
+                var capasLayer = {
+                    "Curvas de nivel 1 m": wmsGeneralCurv1m,
+                    "Curvas de nivel    ": wmsGeneralCurv,
+                    "Cabecera DAgua     ": wmsCabeceraCartoDAgua,
+                    "Cabecera drenajes  ": wmsCabeceraCartoDrenajeEtiqueta,
+                    "Cabecera drenaje L ": wmsCabeceraBasicaDrenajeL,
+                    "Cabecera drenaje R ": wmsCabeceraBasicaDrenajeR,
+                    "Unidad geologica   ": wmsUnidadGeologica,
+
+                };
+
+                // Crear control de capas
+                var controlCapas = L.control.layers(capasBase, null, {
+                    collapsed: false
+                });
+                controlCapas.addTo(map);
+
+                var controlLayer = L.control.layers(null, null, {
+                    collapsed: false
+                });
+
+                // Añadir controlLayer al mapa
+                controlLayer.addTo(map);
+                /*
+                        var layerLegend = L.Geoserver.legend("http://127.0.0.1:8081/geoserver/Manizales/wms", {
+                            layers: "Manizales:UnidadGeologica",
+                            //style: `stylefile`,
+                        }).addTo(map);
+                */
+
+                var legend = L.control({
+                    position: 'bottomright'
+                });
+
+                legend.onAdd = function(map) {
+                    var div = L.DomUtil.create('div', 'info legend');
+                    return div;
+                };
+                legend.addTo(map);
+                // Agregar capas a controlLayer
+                for (var key in capasLayer) {
+                    if (capasLayer.hasOwnProperty(key)) {
+                        controlCapas.addOverlay(capasLayer[key], key);
+                        capasLayer[key].on('add', function(event) {
+                            var capaAgregada = event.target;
+                            activarLeyenda(capaAgregada);
+                        });
+                        /*capasLayer[key].on('remove', function(event) {
+                            // Llamamos a la función quitarLeyenda cuando la capa se quita
+                            quitarLeyenda();
+                        });*/
+                    }
+                }
+
+                function activarLeyenda(capa) {
+                    // Implementa lógica para activar la leyenda basada en la capa
+                    console.log('Activar leyenda para la capa:', capa.options.layers);
+
+                    // Actualiza el contenido de la leyenda según la capa
+                    var div = legend.getContainer();
+                    div.innerHTML = '<img alt="legend" src=" http://localhost:8081/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=' + capa.options.layers + '" width="127" height="120" />';
+                }
+
+                function quitarLeyenda() {
+                    // Quita el control de la leyenda
+                    if (legend) {
+                        legend.remove(map);
+                    }
+                }
+
+                /*
+                        var legend = L.control({
+                            position: 'bottomright'
+                        });
+
+                        legend.onAdd = function(map) {
+                            var div = L.DomUtil.create('div', 'info legend');
+                            div.innerHTML = '<img alt="legend" src=" http://localhost:8081/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=Manizales:UnidadGeologica" width="127" height="120" />';
+                            return div; // Asegúrate de devolver el elemento div creado
+                        };
+
+                        legend.addTo(map);
+                        
+    
+                // Tif con L.Geserver, manda errores pero sirve
+                /*
+                var Tiff = L.Geoserver.wms("http://localhost:8081/geoserver/wms", {
+                    layers: "Manizales:LC08_L1TP_009057_20231203_20231209_02_T1",
+                    attribution: "Visor Manizales Conexion Territorial",
+                }).addTo(map);*/
+
+                // otra forma de poner las tif pero vota Uncaught ReferenceError: require is not defined at main.js:3:15
+
+                // Definir las capas Tiff
+                var Tiff1 = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                    layers: ["Manizales:LC08_L1TP_009057_20231203_20231209_02_T1"],
+                    format: 'image/png',
+                    transparent: true,
+                    //opacity: 0.5
+                });
+
+                var Tiff2 = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                    layers: ["Manizales:LC08_L1TP_009057_20231203_20231209_02_T1_refl"],
+                    format: 'image/png',
+                    transparent: true,
+                    //opacity: 0.5
+                });
+
+                // Crear un objeto con las capas Tiff
+                var capasTiff = {
+                    "Tiff 1": Tiff1,
+                    "Tiff 2": Tiff2
+                };
+
+                // Crear el control de capas
+                var controlCapas = L.control.layers(null, capasTiff, {
+                    collapsed: false
+                });
+
+                // Añadir el control al mapa
+                controlCapas.addTo(map);
+
+
+                var layerrequest = L.Geoserver.legend("http://127.0.0.1:8081/geoserver/Manizales/wms", {
+                    layers: "Manizales:UnidadGeologica",
+                }).addTo(map);
+            </script>
+
+
+            <script>
+                L.control.scale().addTo(map);
+                L.control.mousePosition().addTo(map);
+                //L.control.locate().addTo(map);
+            </script>
+            <footer class="pt-4 my-md-5 pt-md-5 border-top">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <img class="mb-2" src="../assets/brand/bootstrap-logo.svg" alt="" width="24" height="19">
+                        <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Features</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Resources</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>About</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+    </div>
+
+
+
+</body>
+
+</html>

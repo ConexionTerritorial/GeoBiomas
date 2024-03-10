@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="Capa_layer" class="form-label" style="font-size: 18px; color: #333; font-family: 'Arial', sans-serif;">Seleccionar Layer:</label>
+                <select class="form-select" aria-label="Seleccione un layer" id="Capa_layer" style="font-size: 16px; color: #555; font-family: 'Arial', sans-serif;">
+                    <option selected>Seleccione un layer</option>
+                    <option value='Carto_Basica_cabecera Drenaj_L'>Cabecera drenaje L</option>
+                    <option value="Carto_Basica_cabecera Drenaj_R">Cabecera drenaje R</option>
+                    <option value="Carto_Basica_cabecera CNivel">Curvas de nivel</option>
+                    <option value="Carto_Basica_cabecera CNivel_1m">Curvas de nivel 1 metro</option>
+                    <option value="Carto_Basica_cabecera Constr_R">Cabecera construccion R</option>
+                    <option value="Carto_Basica_cabecera CNivel">Curvas de nivel</option>
+                    <option value="Carto_Basica_cabecera DAgua_R">Cabecera drenaje agua R</option>
+                    <option value="Carto_Basica_cabecera PerimetrosUrbanos">Cabecera Perimetros Urbanos</option>
+                    <option value="UnidadGeologica">Unidad Geologica</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="Campo_layer" class="form-label">Seleccionar Campo:</label>
+                <select class="form-select" aria-label="Seleccione un campo" id="Campo_layer">
+                    <option selected>Seleccione un campo</option>
+                    <option value="1">Primero seleccione el layer</option>
+                 
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="Filtro_Campo" class="form-label" style="font-size: 18px; color: #333; font-family: 'Arial', sans-serif;">Filtrar por:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" id="Filtro_Campo" style="font-size: 16px; color: #555; font-family: 'Arial', sans-serif;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

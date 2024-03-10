@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoVisor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-measure-master/css/leaflet-measure.css">
+    <style>
+        #map {
+            height: calc(100vh - 56px);
+            /* Ajusta los 56px según la altura real de tu barra de navegación */
+            position: relative;
+            /* Agrega esta línea */
+        }
+        
+        .sidebar {
+            overflow-y: auto;
+        }
+        
+        .toggler-sidebar {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">GeoVisor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contáctenos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Precios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <div class="sidebar bg-primary flex-shrink-0 p-3">
+            <span class="toggler-sidebar">
+                <span class="icon">㊂</span>
+            <span class="menu-text text-white fs-4">Herramientas</span>
+            </span>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page">
+                        <span class="icon">&#127968;</span>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <span class="icon">&#128202;</span>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <span class="icon">&#128230;</span>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <span class="icon">&#128717;</span>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <span class="icon">&#128101;</span>
+                        <span class="text">Customers</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div id="map" class="flex-grow-1">
+            <!-- Burbujas añadidas aquí dentro para que se posicionen sobre el mapa 
+            <div class="map-bubbles">
+                <div class="bubble" data-target="#window1">Medir</div>
+                <div class="bubble" data-target="#window2">Burbuja 2</div>
+                <div class="bubble" data-target="#window3">Burbuja 3</div>
+            </div>
+            -->
+        </div>
+
+        <!-- Ventanas modales para cada burbuja 
+        <div id="window1" class="modal-window">Contenido ventana 1</div>
+        <div id="window2" class="modal-window">Contenido ventana 2</div>
+        <div id="window3" class="modal-window">Contenido ventana 3</div>
+        -->
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="leaflet-measure-master/src/leaflet-measure.js"></script>
+    <style>
+        /* Ajusta el ancho original y el contraído del sidebar */
+        
+        .sidebar {
+            width: 250px;
+            /* Ancho original del sidebar */
+            transition: width 0.3s;
+        }
+        
+        .sidebar-contracted {
+            width: 100px;
+            /* Ancho cuando está contraído */
+        }
+        /* Estilo para el texto y los íconos dentro de los enlaces */
+        
+        .nav-link .text {
+            display: inline;
+            /* Asegura que el texto se muestre inicialmente */
+        }
+        
+        .nav-link .icon {
+            margin-right: 10px;
+            /* Espaciado entre ícono y texto, si ambos se muestran */
+        }
+        /* Oculta el texto y ajusta los íconos cuando el sidebar está contraído */
+        
+        .sidebar-contracted .nav-link .text {
+            display: none;
+            /* Oculta el texto */
+        }
+        
+        .sidebar-contracted .nav-link {
+            justify-content: center;
+            /* Centra los íconos en el sidebar contraído */
+        }
+        
+        .map-bubbles {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            /* Espacio entre burbujas */
+            z-index: 1000;
+            /* Asegura que las burbujas se muestren sobre el mapa */
+        }
+        
+        .bubble {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .modal-window {
+            display: none;
+            /* Ocultas inicialmente */
+            position: fixed;
+            left: 50%;
+            bottom: 100px;
+            /* Ajusta según necesites */
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            /* Asegúrate de que esté sobre el mapa */
+        }
+        
+        .sidebar-contracted .menu-icon {
+            display: inline-block;
+            /* Muestra el icono cuando el sidebar está contraído */
+        }
+        
+        .sidebar-contracted .menu-text {
+            display: none;
+            /* Oculta el texto "Herramientas" cuando el sidebar está contraído */
+        }
+        /* Asegúrate de que el sidebar tenga el ancho correcto en ambos estados */
+    </style>
+    <script>
+        var map = L.map('map').setView([4.8143, -75.6948], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Sidebar toggle functionality
+        $('.toggler-sidebar').click(function() {
+            $('.sidebar').toggleClass('sidebar-contracted');
+            // Ajusta el tamaño del mapa de manera dinámica si es necesario
+            map.invalidateSize();
+        });
+        var measureControl = new L.Control.Measure({
+            position: 'bottomright',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares',
+            // Puedes cambiar la posición según necesites
+            // Configuración adicional aquí
+        });
+        //Añadir el medidor si no se llama con otros elementos
+        //measureControl.addTo(map);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.bubble').click(function() {
+                var targetId = $(this).data('target');
+                var $target = $(targetId);
+
+                // Si la ventana ya está visible, la oculta. Si no, la muestra.
+                if ($target.is(':visible')) {
+                    $target.hide();
+                } else {
+                    // Oculta otras ventanas antes de mostrar la seleccionada
+                    $('.modal-window').hide();
+                    $target.show();
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var measureControl = new L.Control.Measure({
+                position: 'bottomright',
+                primaryLengthUnit: 'meters',
+                secondaryLengthUnit: 'kilometers',
+                primaryAreaUnit: 'sqmeters',
+                secondaryAreaUnit: 'hectares',
+            }).addTo(map);
+
+            // Esperar a que el mapa se cargue para ajustar la posición del control de medida
+            map.on('load', function() {
+                var measureControlDiv = document.querySelector('.leaflet-control-measure');
+                if (measureControlDiv) {
+                    // Establece estilos personalizados para centrar el control
+                    measureControlDiv.style.position = 'relative';
+                    measureControlDiv.style.left = '50%';
+                    measureControlDiv.style.bottom = '10px'; // Ajusta según sea necesario
+                    measureControlDiv.style.transform = 'translateX(-50%)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

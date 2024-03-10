@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoVisor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-measure-master/css/leaflet-measure.css">
+    <style>
+        #map {
+            height: calc(100vh - 56px);
+            /* Ajusta los 56px según la altura real de tu barra de navegación */
+            position: relative;
+            /* Agrega esta línea */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+
+    <!-- Ventanas modales para cada burbuja -->
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="leaflet-measure-master/src/leaflet-measure.js"></script>
+
+    <script>
+        var map = L.map('map', {
+            measureControl: true
+        }).setView([4.8143, -75.6948], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.bubble').click(function() {
+                var targetId = $(this).data('target');
+                var $target = $(targetId);
+
+                // Si la ventana ya está visible, la oculta. Si no, la muestra.
+                if ($target.is(':visible')) {
+                    $target.hide();
+                } else {
+                    // Oculta otras ventanas antes de mostrar la seleccionada
+                    $('.modal-window').hide();
+                    $target.show();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
