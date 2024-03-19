@@ -8,7 +8,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="leaflet-measure-master/css/leaflet-measure.css">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
     <style>
+        body,
+        html {
+            font-family: 'Teko', sans-serif;
+            font-size: 20px;
+            /* Ajusta el peso de la fuente según necesites */
+        }
+        
         #map {
             height: calc(100vh - 56px);
             /* Ajusta los 56px según la altura real de tu barra de navegación */
@@ -23,6 +33,39 @@
         .toggler-sidebar {
             cursor: pointer;
         }
+        
+        .navbar-brand {
+            font-family: 'Teko', sans-serif;
+            /* Ajusta el peso de la fuente y otros estilos según necesites */
+        }
+        
+        .logo-left {
+            margin-right: 20px;
+            /* Añade un espacio a la derecha del primer logo */
+        }
+        
+        .logo-right {
+            margin-left: 20px;
+            margin-right: 20px;
+            /* Añade un espacio a la izquierda del segundo logo */
+        }
+        
+        .navbar-brand {
+            font-family: 'Teko', sans-serif;
+            /* Si decides usar la fuente Teko */
+            font-size: 25px;
+            /* Tamaño de la fuente ajustado */
+        }
+        
+        .navbar {
+            background-image: linear-gradient(to bottom, #407d00, rgba(64, 125, 0, 0.7) 35%);
+            /* El cambio comienza a hacerse transparente más rápidamente, alrededor del 10% del camino hacia abajo */
+        }
+        
+        .bg-primary {
+            background-color: #1e9cd7 !important;
+            /* Cian */
+        }
     </style>
 </head>
 
@@ -30,14 +73,16 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
+            <img src="logo.png" alt="Logo" class="logo logo-left" style="width: 100px; height: 100%;">
             <a class="navbar-brand" href="#">GeoVisor</a>
+            <img src="Logo CTGlobal-08.png" alt="Logo" class="logo logo-right" style="width: 100px; height: 100%;">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <span class="navbar-toggler-icon"></span>
+        </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="https://ctglobal.com.co" target="_blank">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sobre Nosotros</a>
@@ -61,7 +106,7 @@
             </span>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
+                    <a href="#" class="nav-link active" aria-current="page" id="homeLink">
                         <span class="icon">&#127968;</span>
                         <span class="text">Home</span>
                     </a>
@@ -72,17 +117,18 @@
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="#" class="nav-link text-white">
                         <span class="icon">&#128230;</span>
-                        <span class="text">Orders</span>
+                        <span class="text">Informacion</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
-                        <span class="icon">&#128717;</span>
-                        <span class="text">Products</span>
-                    </a>
+                -->
+                <a href="#" class="nav-link text-white" id="productsLink">
+                    <span class="icon">&#128717;</span>
+                    <span class="text">Products</span>
+                </a>
                 </li>
                 <li>
                     <a href="#" class="nav-link text-white">
@@ -93,7 +139,87 @@
 
             </ul>
         </div>
+        <!-- Segundo sidebar con panel de búsqueda -->
+        <div class="sidebar-secondary bg-secondary flex-shrink-0 p-3" id="sidebar-dashboard" style="display: none; width: 250px;">
+            <!-- Panel de búsqueda -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 bg-light">
+                        <div class="container py-3">
+                            <!-- Contenedor para la selección de capa -->
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <select class="form-select" id="Capa_layer">
+                                <option selected>Seleccione un layer</option>
+                                    <option value="AmenazaMovMasaC">Amenazas deslizamineto</option>
+                                    <option value="DrenajeSencilloC">Drenaje</option>
+                                    <option value="PrediosRuralC">Predios</option>
+                                    <option value="ViasC">Vias</option>
+                                    <option value="InventarioSismos">Inventarios sismos</option>
+                                    <option value="RasgosEstructurales">Rasgos estructurales</option>
+                                    <option value="Carto_Basica_cabecera DAgua_R">Cabecera drenaje agua R</option>
+                                    <option value="Carto_Basica_cabecera PerimetrosUrbanos">Cabecera Perimetros Urbanos</option>
+                                    <option value="UnidadGeologica">Unidad Geologica</option>
+                            </select>
+                                </div>
+                            </div>
+                            <!-- Contenedor para la selección de campo -->
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <select class="form-select" id="Campo_layer">
+                                <option selected>Seleccione un campo</option>
+                                
+                            </select>
+                                </div>
+                            </div>
+                            <!-- Contenedor para el input de filtro -->
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" id="Filtro_Campo" placeholder="Ingrese un filtro">
+                                </div>
+                            </div>
+                            <!-- Contenedor para los botones de acción -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" id="MapsStreetView">Añadir un marcador</button>
+                                    <button type="button" class="btn btn-secondary" id="VerStreetView" style="display: none;">Ver en Street View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Sidebar de Products, inicialmente oculto -->
+        <!-- Nuevo sidebar para Products, inicialmente oculto -->
+        <div class="sidebar-secondary bg-secondary flex-shrink-0 p-3" id="sidebar-products" style="display: none; width: 450px;">
+            <!-- Contenido del sidebar Products -->
+            <div id="embedded-pivot-table">
+                <!-- Código de incrustación de la tabla dinámica -->
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT8q7VVYKvaasWPFH_9bdqCY5EDsolh4PUXJQuyrkB5WqIqplsQoYcN-G_ox9HYzQ/pubhtml?gid=387986931&single=true" width="100%" height="600" frameborder="0"></iframe>
+            </div>
+        </div>
+        <!-- Nuevo sidebar para Customers, inicialmente oculto -->
+        <div class="sidebar-secondary bg-secondary flex-shrink-0 p-3" id="sidebar-customers" style="display: none; width: 250px;">
+            <!-- Título del Sidebar -->
+            <h4>Clientes Potenciales y Aplicaciones</h4>
+            <!-- Introducción -->
+            <p>La capacidad de visualizar y analizar datos geográficos es esencial en diversos sectores:</p>
+            <!-- Lista de Sectores y Aplicaciones -->
+            <ul>
+                <li><strong>Gobiernos y Organizaciones Públicas:</strong> Planificación territorial, gestión de recursos, y respuesta ante emergencias.</li>
+                <li><strong>Planificadores Urbanos y Regionales:</strong> Desarrollo urbano sostenible y planificación del uso del suelo.</li>
+                <li><strong>Agencias de Gestión de Emergencias:</strong> Monitoreo en tiempo real y respuestas eficientes ante desastres.</li>
+                <li><strong>Sectores de Seguridad:</strong> Vigilancia, análisis de patrones y planificación estratégica para la seguridad pública.</li>
+                <li><strong>Investigadores y Académicos:</strong> Apoyo a la investigación científica y al análisis territorial con herramientas de análisis espacial.</li>
+                <li><strong>Empresas Privadas:</strong> Optimización de operaciones en logística, transporte, inmobiliario, y más.</li>
+            </ul>
+            <!-- Conclusión -->
+            <p>Nuestros servicios convierten datos geográficos en decisiones inteligentes y acciones efectivas para enfrentar los desafíos del mundo moderno.</p>
+        </div>
+
+        <!-- Mapa -->
         <div id="map" class="flex-grow-1">
             <!-- Burbujas añadidas aquí dentro para que se posicionen sobre el mapa 
             <div class="map-bubbles">
@@ -116,6 +242,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="leaflet-measure-master/src/leaflet-measure.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./Leaflet.MousePosition-master/src/L.Control.MousePosition.js"></script>
+
+    <!--Estas dos src son de wfs no borrar nada-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./leaflet-geoserver-request-master/leaflet-geoserver-request-master/src/L.Geoserver.js"></script>
     <style>
         /* Ajusta el ancho original y el contraído del sidebar */
         
@@ -150,6 +283,19 @@
         .sidebar-contracted .nav-link {
             justify-content: center;
             /* Centra los íconos en el sidebar contraído */
+        }
+        
+        .bg-secondary {
+            background-color: #efefef!important;
+            width: 250px;
+            /* Ajusta el ancho según sea necesario */
+            max-height: 90vh;
+            /* Máxima altura igual a la altura de la ventana del navegador */
+            overflow-y: auto;
+            /* Permite desplazarse verticalmente si el contenido excede la altura */
+            top: 0;
+            /* Alinea la parte superior del sidebar con la parte superior de la ventana */
+            /* Puedes ajustar la propiedad 'left' o 'right' según donde quieras que aparezca el sidebar */
         }
         
         .map-bubbles {
@@ -197,7 +343,13 @@
             display: none;
             /* Oculta el texto "Herramientas" cuando el sidebar está contraído */
         }
-        /* Asegúrate de que el sidebar tenga el ancho correcto en ambos estados */
+        
+        .sidebar-secondary {
+            width: 500px;
+            /* Ancho del sidebar de Products */
+            display: none;
+            /* Oculto inicialmente */
+        }
     </style>
     <script>
         var map = L.map('map').setView([4.8143, -75.6948], 13);
@@ -213,6 +365,9 @@
             // Ajusta el tamaño del mapa de manera dinámica si es necesario
             map.invalidateSize();
         });
+
+        // Codigo de medicion 
+
         var measureControl = new L.Control.Measure({
             position: 'bottomright',
             primaryLengthUnit: 'meters',
@@ -224,6 +379,359 @@
         });
         //Añadir el medidor si no se llama con otros elementos
         //measureControl.addTo(map);
+
+
+        // codigo de gogle maps
+        var marker = null; // Variable para almacenar el marcador
+        var isAddingMarkerEnabled = false; // Variable para controlar si se permite agregar un marcador o no
+
+        // Función para manejar el clic en el mapa y agregar un marcador
+        function onMapClick(e) {
+            if (marker) {
+                map.removeLayer(marker); // Eliminar el marcador anterior si existe
+            }
+            marker = L.marker(e.latlng).addTo(map); // Agregar un nuevo marcador en la posición clicada
+            // Mostrar el botón para ver en Street View
+            document.getElementById("VerStreetView").style.display = "inline";
+        }
+
+        // Obtener el botón por su ID
+        var botonMapsStreetView = document.getElementById("MapsStreetView");
+
+        // Agregar un event listener para el evento de clic en el botón "Añadir un marcador"
+        botonMapsStreetView.addEventListener("click", function() {
+            // Alternar la variable que controla si se permite agregar un marcador o no
+            isAddingMarkerEnabled = !isAddingMarkerEnabled;
+            if (isAddingMarkerEnabled) {
+                // Si se habilita la opción de agregar marcador, se agrega el event listener al mapa
+                map.on('click', onMapClick);
+            } else {
+                // Si se deshabilita la opción de agregar marcador, se quita el event listener del mapa
+                map.off('click', onMapClick);
+            }
+        });
+
+        // Obtener el botón por su ID
+        var botonVerStreetView = document.getElementById("VerStreetView");
+
+        // Agregar un event listener para el evento de clic en el botón "Ver en Street View"
+        botonVerStreetView.addEventListener("click", function() {
+            // Obtener las coordenadas del marcador
+            var latitud = marker.getLatLng().lat;
+            var longitud = marker.getLatLng().lng;
+
+            // Abrir Google Street View con las coordenadas del marcador
+            abrirGoogleStreetView(latitud, longitud);
+        });
+
+        function abrirGoogleStreetView(latitud, longitud) {
+            // Construir la URL de Google Street View con las coordenadas proporcionadas
+            var url = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitud + "," + longitud;
+
+            // Abrir una nueva pestaña del navegador con la URL de Google Street View
+            window.open(url, "_blank");
+        }
+
+        // codigo de buscador dinamico
+        var filter = "";
+        var fields = "";
+        var search = "";
+        var wfsLayer;
+
+        // Función para actualizar el estado y realizar acciones adicionales
+        function updateFilter(value) {
+            filter = value;
+            updateDisplay();
+        }
+
+        function updateFields(value) {
+            fields = value;
+            updateDisplay();
+        }
+
+        function updateSearch(value) {
+            search = value;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            //  console.log(wfsLayer)
+            // Elimina la capa existente antes de agregar la nueva
+            if (wfsLayer) {
+                map.removeLayer(wfsLayer);
+                controlCapas.removeLayer(wfsLayer);
+            }
+
+            wfsLayer = L.Geoserver.wfs("http://localhost:8081/geoserver/wfs", {
+                layers: `Manizales:${filter}`,
+                style: {
+                    color: "blue",
+                    fillOpacity: "0",
+                    opacity: "0.5",
+                },
+                onEachFeature: function(feature, layer) {
+                    const diccionario = layer.feature.properties
+                    featureArray = Object.keys(diccionario)
+                    var selectOption = document.getElementById("Campo_layer");
+                    selectOption.innerHTML = "";
+
+                    const popupContent = generatePopupContent(feature);
+                    layer.bindPopup(popupContent);
+
+                    featureArray.forEach((featureArray) => {
+                        // Crea un nuevo elemento option
+                        const newOption = document.createElement("option");
+                        newOption.value = featureArray;
+                        newOption.text = featureArray;
+
+                        // Añade el nuevo elemento option al elemento select
+                        selectOption.appendChild(newOption);
+                    });
+
+
+                    //layer.bindPopup("Este layer tiene la información altura de : " + feature.properties.CNAltura + " y su numero de objeto es : " + feature.properties.OBJECTID);
+                },
+                CQL_FILTER: fields == "" ? "" : `${fields}=='${search}'`,
+            });
+            wfsLayer.addTo(map);
+            controlCapas.addOverlay(wfsLayer, "WFS Layer")
+        }
+
+        // Agregar event listeners
+        document.getElementById("Capa_layer").addEventListener("change", function(event) {
+            updateFilter(event.target.value);
+        });
+
+        document.getElementById("Campo_layer").addEventListener("change", function(event) {
+            updateFields(event.target.value);
+        });
+
+        document.getElementById("Filtro_Campo").addEventListener("input", function(event) {
+            updateSearch(event.target.value);
+        });
+
+        function generatePopupContent(feature) {
+            const properties = feature.properties;
+            const popupContent = [];
+
+            // Agregar las propiedades al contenido del popup
+            for (const prop in properties) {
+                if (properties.hasOwnProperty(prop)) {
+                    popupContent.push(`<b>${prop}:</b> ${properties[prop]}`);
+                }
+            }
+
+            // Puedes personalizar la presentación del contenido según tus necesidades
+            // Simplemente se concatena todo en un string
+            return popupContent.join('<br>');
+        }
+
+        var osm = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+        //var EsriMap = L.tileLayer.provider('Esri.WorldGrayCanvas');
+
+        //var sateliteMap = L.tileLayer.provider('Esri.WorldImagery');
+
+        /*
+                var wmsGeneralCab = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                        layers: ["Manizales:Carto_Basica_cabecera CNivel"],
+                        format: 'image/png',
+                        transparent: true
+                    }) //.addTo(map);
+        */
+        // definir una capa con wfs con todas sus capacidades
+        var wfsLayer = L.Geoserver.wfs("http://localhost:8081/geoserver/wfs", {
+            layers: `Manizales:Carto_Basica_cabecera Drenaj_L`,
+            style: {
+                color: "black",
+                fillOpacity: "0",
+                opacity: "0.5",
+            },
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup("Este layer tiene la información altura de : " + feature.properties.CNAltura + " y su numero de objeto es : " + feature.properties.OBJECTID);
+            },
+            //CQL_FILTER: "district='Syangja'",
+        });
+        //wfsLayer.addTo(map);
+
+        //Carga de todos los layers wms 
+
+
+        var wmsGeneralCurv = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:Carto_Basica_cabecera CNivel"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+
+        var wmsGeneralCurv1m = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+            layers: ["Manizales:Carto_Basica_cabecera CNivel_1m"],
+            format: 'image/png',
+            transparent: true
+        });
+
+        var wmsCabeceraCartoBasica = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:Carto_Basica_cabecera Constr_R"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+
+        var wmsCabeceraCartoDAgua = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:Carto_Basica_cabecera DAgua_R"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+
+        var wmsCabeceraCartoDrenajeEtiqueta = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:Carto_Basica_cabecera Drenaj_Etiqueta"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+
+        var wmsCabeceraBasicaDrenajeL = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+            layers: ["Manizales:Carto_Basica_cabecera Drenaj_L"],
+            format: 'image/png',
+            transparent: true
+        });
+
+        var wmsCabeceraBasicaDrenajeR = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+            layers: ["Manizales:Carto_Basica_cabecera Drenaj_R"],
+            format: 'image/png',
+            transparent: true
+        });
+        var wmsUnidadGeologica = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:UnidadGeologica"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+
+
+        // prueba de subir shape y editar en arcgis 
+        var wmsMundo = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wfs?", {
+            layers: ["Manizales:Paises_Mundo_export"],
+            format: 'image/png',
+            transparent: true
+        }).addTo(map);
+
+
+        // definir las capas base que se pueden seleccionar
+        var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'
+        });
+
+        // Objeto de capas base
+        var capasBase = {
+            "OpenStreetMap": osm,
+            "osmHOT": osmHOT,
+        };
+
+        var capasLayer = {
+            "Curvas de nivel 1 m": wmsGeneralCurv1m,
+            "Curvas de nivel    ": wmsGeneralCurv,
+            "Cabecera DAgua     ": wmsCabeceraCartoDAgua,
+            "Cabecera drenajes  ": wmsCabeceraCartoDrenajeEtiqueta,
+            "Cabecera drenaje L ": wmsCabeceraBasicaDrenajeL,
+            "Cabecera drenaje R ": wmsCabeceraBasicaDrenajeR,
+            "Unidad geologica   ": wmsUnidadGeologica,
+
+        };
+
+        // Crear control de capas
+        var controlCapas = L.control.layers(capasBase, null, {
+            collapsed: false
+        });
+        controlCapas.addTo(map);
+
+        var controlLayer = L.control.layers(null, null, {
+            collapsed: false
+        });
+
+        // Añadir controlLayer al mapa
+        //controlLayer.addTo(map);
+
+        //Controlar leyenda
+        var legend = L.control({
+            position: 'bottomright'
+        });
+
+        legend.onAdd = function(map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            return div;
+        };
+        //legend.addTo(map);
+        // Agregar capas a controlLayer
+        for (var key in capasLayer) {
+            if (capasLayer.hasOwnProperty(key)) {
+                controlCapas.addOverlay(capasLayer[key], key);
+                capasLayer[key].on('add', function(event) {
+                    var capaAgregada = event.target;
+                    activarLeyenda(capaAgregada);
+                });
+                capasLayer[key].on('remove', function(event) {
+                    // Llamamos a la función quitarLeyenda cuando la capa se quita
+                    quitarLeyenda();
+                });
+            }
+        }
+        /*
+                function activarLeyenda(capa) {
+                    // Implementa lógica para activar la leyenda basada en la capa
+                    console.log('Activar leyenda para la capa:', capa.options.layers);
+
+                    // Actualiza el contenido de la leyenda según la capa
+                    //var div = legend.getContainer();
+                    //div.innerHTML = '<img alt="legend" src=" http://localhost:8081/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=' + capa.options.layers + '" width="127" height="120" />';
+                }
+
+                function quitarLeyenda() {
+                    // Quita el control de la leyenda
+                    if (legend) {
+                        legend.remove(map);
+                    }
+                }
+        */
+        // Definir las capas Tiff
+        var Tiff1 = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+            layers: ["Manizales:LC08_L1TP_009057_20231203_20231209_02_T1"],
+            format: 'image/png',
+            transparent: true,
+            //opacity: 0.5
+        });
+
+        var Tiff2 = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+            layers: ["Manizales:LC08_L1TP_009057_20231203_20231209_02_T1_refl"],
+            format: 'image/png',
+            transparent: true,
+            //opacity: 0.5
+        });
+
+        // Crear un objeto con las capas Tiff
+        var capasTiff = {
+            "Tiff 1": Tiff1,
+            "Tiff 2": Tiff2
+        };
+
+        // Crear el control de capas
+        var controlCapas = L.control.layers(null, capasTiff, {
+            collapsed: false
+        });
+
+        // Añadir el control al mapa
+        controlCapas.addTo(map);
+
+        // leyenda 
+        /*
+                var layerrequest = L.Geoserver.legend("http://127.0.0.1:8081/geoserver/Manizales/wms", {
+                    layers: "Manizales:UnidadGeologica",
+                }).addTo(map);
+        */
+        // Escala y coordenadas
+        L.control.scale({
+            metric: true,
+            imperial: false,
+            position: 'bottomright'
+        }).addTo(map);
+        L.control.mousePosition().addTo(map)
     </script>
     <script>
         $(document).ready(function() {
@@ -241,6 +749,7 @@
                 }
             });
         });
+
         document.addEventListener('DOMContentLoaded', function() {
             var measureControl = new L.Control.Measure({
                 position: 'bottomright',
@@ -259,6 +768,50 @@
                     measureControlDiv.style.left = '50%';
                     measureControlDiv.style.bottom = '10px'; // Ajusta según sea necesario
                     measureControlDiv.style.transform = 'translateX(-50%)';
+                }
+            });
+        });
+
+        // cuando da clik en home vuelve a unas coordenadas iniciales 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Definir las coordenadas iniciales y el nivel de zoom del mapa
+            var initialCoordinates = [4.8143, -75.6948]; // Estas son coordenadas de ejemplo
+            var initialZoomLevel = 13;
+
+            // Añadir evento de clic al enlace "Home" usando su ID
+            document.getElementById('homeLink').addEventListener('click', function(e) {
+                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+                // Restablecer la vista del mapa a las coordenadas y zoom iniciales
+                map.setView(initialCoordinates, initialZoomLevel);
+            });
+        });
+
+        // script dashboards y products
+        $(document).ready(function() {
+            // Controlador de clics para el enlace "Dashboard"
+            $('.nav-link').click(function() {
+                var text = $(this).find('.text').text();
+                if (text === 'Dashboard') {
+                    // Alternar la visibilidad del sidebar de Dashboard
+                    $('#sidebar-dashboard').toggle();
+                }
+            });
+
+            // Controlador de clics para el enlace "Products"
+            $('.nav-link').click(function() {
+                var text = $(this).find('.text').text();
+                if (text === 'Products') {
+                    // Alternar la visibilidad del sidebar de Products
+                    $('#sidebar-products').toggle();
+                }
+            });
+
+            // Controlador de clics para el enlace "Customers"
+            $('a.nav-link').click(function() {
+                var text = $(this).find('.text').text();
+                if (text === 'Customers') {
+                    // Alternar la visibilidad del sidebar de Customers
+                    $('#sidebar-customers').toggle();
                 }
             });
         });
