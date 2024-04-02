@@ -14,9 +14,9 @@
     <style>
         body,
         html {
-            font-family: 'Teko', sans-serif;
+            /*font-family: 'Teko', sans-serif;
             font-size: 20px;
-            /* Ajusta el peso de la fuente según necesites */
+             Ajusta el peso de la fuente según necesites */
         }
         
         #map {
@@ -151,10 +151,10 @@
                                 <div class="col-md-12">
                                     <select class="form-select" id="Capa_layer">
                                 <option selected>Seleccione un layer</option>
-                                    <option value="AmenazaMovMasaC">Amenazas deslizamineto</option>
-                                    <option value="DrenajeSencilloC">Drenaje</option>
-                                    <option value="PrediosRuralC">Predios</option>
-                                    <option value="ViasC">Vias</option>
+                                    <option value="AmenazaMovMasaCelia">Amenazas deslizamineto</option>
+                                    <option value="DrenajeSencilloCelia">Drenaje</option>
+                                    <option value="PrediosRuralCelia">Predios</option>
+                                    <option value="ViasCelia">Vias</option>
                                     <option value="InventarioSismos">Inventarios sismos</option>
                                     <option value="RasgosEstructurales">Rasgos estructurales</option>
                                     <option value="Carto_Basica_cabecera DAgua_R">Cabecera drenaje agua R</option>
@@ -638,12 +638,12 @@
 
         // Crear control de capas
         var controlCapas = L.control.layers(capasBase, null, {
-            collapsed: false
+
         });
         controlCapas.addTo(map);
 
         var controlLayer = L.control.layers(null, null, {
-            collapsed: false
+
         });
 
         // Añadir controlLayer al mapa
@@ -713,7 +713,7 @@
 
         // Crear el control de capas
         var controlCapas = L.control.layers(null, capasTiff, {
-            collapsed: false
+            //collapsed: false
         });
 
         // Añadir el control al mapa
