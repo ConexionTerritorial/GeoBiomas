@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="leaflet-measure-master/css/leaflet-measure.css">
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="shortcut icon" href="Logo CTGlobal-icono.png">
 
     <style>
         body,
@@ -114,7 +114,7 @@
                 <li>
                     <a href="#" class="nav-link text-white">
                         <span class="icon">&#128202;</span>
-                        <span class="text">Dashboard</span>
+                        <span class="text">Busqueda</span>
                     </a>
                 </li>
                 <!--<li>
@@ -127,13 +127,13 @@
                 -->
                 <a href="#" class="nav-link text-white" id="productsLink">
                     <span class="icon">&#128717;</span>
-                    <span class="text">Products</span>
+                    <span class="text">Productos</span>
                 </a>
                 </li>
                 <li>
                     <a href="#" class="nav-link text-white">
                         <span class="icon">&#128101;</span>
-                        <span class="text">Customers</span>
+                        <span class="text">Clientes</span>
                     </a>
                 </li>
 
@@ -151,15 +151,15 @@
                                 <div class="col-md-12">
                                     <select class="form-select" id="Capa_layer">
                                 <option selected>Seleccione un layer</option>
-                                    <option value="AmenazaMovMasaCelia">Amenazas deslizamineto</option>
-                                    <option value="DrenajeSencilloCelia">Drenaje</option>
-                                    <option value="PrediosRuralCelia">Predios</option>
-                                    <option value="ViasCelia">Vias</option>
-                                    <option value="InventarioSismos">Inventarios sismos</option>
-                                    <option value="RasgosEstructurales">Rasgos estructurales</option>
-                                    <option value="Carto_Basica_cabecera DAgua_R">Cabecera drenaje agua R</option>
-                                    <option value="Carto_Basica_cabecera PerimetrosUrbanos">Cabecera Perimetros Urbanos</option>
-                                    <option value="UnidadGeologica">Unidad Geologica</option>
+                                    <option value="AmenazaMovMasaCelia">Amenazas deslizamineto la Celia</option>
+                                    <option value="DrenajeSencilloCelia">Drenaje la Celia</option>
+                                    <option value="PrediosRuralCelia">Predios la Celia</option>
+                                    <option value="ViasCelia">Vias la Celia</option>
+                                    <option value="InventarioSismos">Inventarios sismos Santa Rosa de Cabal</option>
+                                    <option value="RasgosEstructurales">Rasgos estructurales Santa Rosa de Cabal</option>
+                                    <option value="Carto_Basica_cabecera DAgua_R">Drenaje agua Santa Rosa de Cabal</option>
+                                    <option value="Carto_Basica_cabecera PerimetrosUrbanos">Perimetros Urbanos</option>
+                                    <option value="UnidadGeologica">Unidad Geologica Santa Rosa de Cabal</option>
                             </select>
                                 </div>
                             </div>
@@ -191,15 +191,123 @@
             </div>
         </div>
 
+
+
+
         <!-- Sidebar de Products, inicialmente oculto -->
         <!-- Nuevo sidebar para Products, inicialmente oculto -->
-        <div class="sidebar-secondary bg-secondary flex-shrink-0 p-3" id="sidebar-products" style="display: none; width: 450px;">
-            <!-- Contenido del sidebar Products -->
-            <div id="embedded-pivot-table">
-                <!-- Código de incrustación de la tabla dinámica -->
-                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT8q7VVYKvaasWPFH_9bdqCY5EDsolh4PUXJQuyrkB5WqIqplsQoYcN-G_ox9HYzQ/pubhtml?gid=387986931&single=true" width="100%" height="600" frameborder="0"></iframe>
+
+        <div class="sidebar-secondary bg-secondary flex-shrink-0 p-3" id="sidebar-products" style="display: none; width: 370px;">
+            <!-- Panel de búsqueda -->
+            <h2>Productos</h2>
+            <!-- Contenedor para la selección de categorías -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- La Celia -->
+                        <select class="form-select mb-3" id="laCelia">
+                            <option selected>La Celia</option>
+                            <option value="AmenazaMovMasaCelia">Amenazas deslizamiento la Celia</option>
+                                <option value="DrenajeSencilloCelia">Drenaje la Celia</option>
+                                <option value="PrediosRuralCelia">Predios la Celia</option>
+                                <option value="ViasCelia">Vías la Celia</option>
+                        </select>
+
+
+                        <!-- Ordenamiento territorial -->
+                        <select class="form-select mb-3" id="ordenamientoTerritorial">
+                <option selected>Ordenamiento territorial</option>
+                <option value="Acueducto">Acueducto</option>
+                    <option value="Alcantarillado">Alcantarillado</option>
+                    <option value="AlumbradoPublico_LaCelia">Alumbrado Público La Celia</option>
+                    <option value="AntenasComunicacion">Antenas de Comunicación</option>
+                    <option value="Bocatoma">Bocatoma</option>
+                    <option value="Cantera">Cantera</option>
+                    <option value="Cascadas">Cascadas</option>
+                    <option value="CasetaComunal_Rural">Caseta Comunal Rural</option>
+            </select>
+                        <!--   -->
+                        <!-- Desastre 
+                        <select class="form-select mb-3" id="desastre">
+                <option selected>Desastre</option>
+            </select>-->
+
+                        <!-- Suelos 
+                        <select class="form-select mb-3" id="suelos">
+                <option selected>Suelos</option>
+            </select>-->
+
+                        <!-- Cobertura de la tierra con mapas básicos e imágenes 
+                        <select class="form-select mb-3" id="coberturaTierra">
+                <option selected>Cobertura de la tierra con mapas básicos e imágenes</option>
+            </select>-->
+
+                        <!-- Áreas de protección -->
+                        <select class="form-select mb-3" id="areasProteccion">
+                <option selected>Áreas de protección</option>
+                
+                    <option value="ConstruccionFajaProteccion">Construcción Faja Protección</option>
+                    <option value="ConstruccionInformalFajaProteccion">Construcción Informal Faja Protección</option>
+                    <option value="CuchillaPaisajistica">Cuchilla Paisajística</option>
+                    <option value="EstructuraEcologicaPrincipal_Rural">Estructura Ecológica Principal Rural</option>
+                    <option value="EstructuraEcologicaUrbana">Estructura Ecológica Urbana</option>
+                    <option value="Humedal">Humedal</option>
+                    <option value="RUNAP">RUNAP</option>
+                    <option value="ZonaAmortiguadoraParques">Zona Amortiguadora Parques</option>
+                    <option value="ZonaAmortiguadoraPNN_Tatama">Zona Amortiguadora PNN Tatama</option>
+                </select>
+                        </select>
+
+                        <!-- Atmósfera climatológica y meteorológica -->
+                        <select class="form-select mb-3" id="atmosferaClimatologica">
+                <option selected>Atmósfera climatológica y meteorológica</option>
+                    <option value="CuencaHidrografica">Cuenca Hidrográfica</option>
+                    <option value="EstacionMeteorologica">Estación Meteorológica</option>
+                    <option value="FajaProteccionCauce_LaCelia">Faja Protección Cauce La Celia</option>
+                    <option value="FajaProteccionCauce_Rural">Faja Protección Cauce Rural</option>
+                    <option value="Isoyeta">Isoyeta</option>
+                    <option value="MicrocuencaAbastecedoraAcueducto">Microcuenca Abastecedora Acueducto</option>
+                    <option value="VelocidadViento">Velocidad del Viento</option>
+                    <option value="ZonificacionClimatica">Zonificación Climática</option>
+            </select>
+
+                        <!-- Cartografía Básica -->
+                        <select class="form-select mb-3" id="cartografiaBasica">
+                <option selected>Cartografía Básica</option>
+                <option value="Curvas_nivel">Curvas de nivel</option>
+                    <option value="Division_municipal">División municipal</option>
+                    <option value="DivisionVeredal">División Veredal</option>
+                    <option value="Drenaje_doble">Drenaje doble</option>
+                    <option value="Drenaje_sencillo">Drenaje sencillo</option>
+                    <option value="Drenajes_Doble">Drenajes Doble</option>
+                    <option value="Drenajes_Sencillos">Drenajes Sencillos</option>
+                    <option value="Infraestructura">Infraestructura</option>
+                    <option value="Perimetro_PatioBonito">Perímetro Patio Bonito</option>
+                    <option value="Perimetros">Perímetros</option>
+                    <option value="Vias">Vías</option>
+            </select>
+
+                        <!-- Información geocientífica 
+                        <select class="form-select mb-3" id="informacionGeocientifica">
+                <option selected>Información geocientífica</option>
+            </select>-->
+
+                        <!-- Elevación 
+                        <select class="form-select mb-3" id="elevacion">
+                <option selected>Elevación</option>
+            </select>-->
+                    </div>
+                </div>
             </div>
+
+
         </div>
+
+
+
+
+
+
         <!-- Nuevo sidebar para Customers, inicialmente oculto -->
         <div class="sidebar-secondary bg-secondary flex-shrink-0 p-3" id="sidebar-customers" style="display: none; width: 250px;">
             <!-- Título del Sidebar -->
@@ -239,6 +347,8 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="leaflet-measure-master/src/leaflet-measure.js"></script>
@@ -352,7 +462,7 @@
         }
     </style>
     <script>
-        var map = L.map('map').setView([4.8143, -75.6948], 13);
+        var map = L.map('map').setView([5.0019444444444, -76.003888888889], 15);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -510,6 +620,7 @@
             updateSearch(event.target.value);
         });
 
+
         function generatePopupContent(feature) {
             const properties = feature.properties;
             const popupContent = [];
@@ -605,6 +716,32 @@
             }) //.addTo(map);
 
 
+        // La Celia 
+
+        var wmsAmenazaMovMasaCelia = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:AmenazaMovMasaCelia"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+        var wmsDrenajeSencilloCelia = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:DrenajeSencilloCelia"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+        var wmsPrediosRuralCelia = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:PrediosRuralCelia"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+        var wmsViasCelia = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                layers: ["Manizales:ViasCelia"],
+                format: 'image/png',
+                transparent: true
+            }) //.addTo(map);
+
+
+
+
         // prueba de subir shape y editar en arcgis 
         var wmsMundo = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wfs?", {
             layers: ["Manizales:Paises_Mundo_export"],
@@ -621,19 +758,19 @@
 
         // Objeto de capas base
         var capasBase = {
-            "OpenStreetMap": osm,
-            "osmHOT": osmHOT,
+            "Mapa Base": osm,
+            "Mapa Topografico": osmHOT,
         };
 
         var capasLayer = {
-            "Curvas de nivel 1 m": wmsGeneralCurv1m,
+            /* "Curvas de nivel 1 m": wmsGeneralCurv1m,
             "Curvas de nivel    ": wmsGeneralCurv,
-            "Cabecera DAgua     ": wmsCabeceraCartoDAgua,
-            "Cabecera drenajes  ": wmsCabeceraCartoDrenajeEtiqueta,
-            "Cabecera drenaje L ": wmsCabeceraBasicaDrenajeL,
-            "Cabecera drenaje R ": wmsCabeceraBasicaDrenajeR,
+            "Drenajes           ": wmsCabeceraCartoDAgua,
+            "Drenajes rurales   ": wmsCabeceraCartoDrenajeEtiqueta,
+            "Drenajes limites   ": wmsCabeceraBasicaDrenajeL,
+            "Drenajes urbano    ": wmsCabeceraBasicaDrenajeR,
             "Unidad geologica   ": wmsUnidadGeologica,
-
+*/
         };
 
         // Crear control de capas
@@ -705,10 +842,21 @@
             //opacity: 0.5
         });
 
+        var Tiff3 = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+            layers: ["Manizales:Ortofoto_La_Celia_3115"],
+            format: 'image/png',
+            transparent: true,
+            //opacity: 0.5
+            maxZoom: 22
+        });
+
+
+
         // Crear un objeto con las capas Tiff
         var capasTiff = {
-            "Tiff 1": Tiff1,
-            "Tiff 2": Tiff2
+            "Imagen satelital F/C": Tiff1,
+            "Imagen satelital V/C": Tiff2,
+            "Ortofoto La Celia": Tiff3
         };
 
         // Crear el control de capas
@@ -775,8 +923,8 @@
         // cuando da clik en home vuelve a unas coordenadas iniciales 
         document.addEventListener('DOMContentLoaded', function() {
             // Definir las coordenadas iniciales y el nivel de zoom del mapa
-            var initialCoordinates = [4.8143, -75.6948]; // Estas son coordenadas de ejemplo
-            var initialZoomLevel = 13;
+            var initialCoordinates = [5.0019444444444, -76.003888888889]; // Estas son Celia
+            var initialZoomLevel = 15;
 
             // Añadir evento de clic al enlace "Home" usando su ID
             document.getElementById('homeLink').addEventListener('click', function(e) {
@@ -791,7 +939,7 @@
             // Controlador de clics para el enlace "Dashboard"
             $('.nav-link').click(function() {
                 var text = $(this).find('.text').text();
-                if (text === 'Dashboard') {
+                if (text === 'Busqueda') {
                     // Alternar la visibilidad del sidebar de Dashboard
                     $('#sidebar-dashboard').toggle();
                 }
@@ -800,7 +948,7 @@
             // Controlador de clics para el enlace "Products"
             $('.nav-link').click(function() {
                 var text = $(this).find('.text').text();
-                if (text === 'Products') {
+                if (text === 'Productos') {
                     // Alternar la visibilidad del sidebar de Products
                     $('#sidebar-products').toggle();
                 }
@@ -809,11 +957,96 @@
             // Controlador de clics para el enlace "Customers"
             $('a.nav-link').click(function() {
                 var text = $(this).find('.text').text();
-                if (text === 'Customers') {
+                if (text === 'Clientes') {
                     // Alternar la visibilidad del sidebar de Customers
                     $('#sidebar-customers').toggle();
                 }
             });
+        });
+
+
+
+
+
+
+        // Variable global para mantener un registro de la capa WMS actualmente visible
+        var currentWmsLayer = null;
+        var wmsLayers = {};
+        var wfsLayers = {};
+        // seleccionar las capas en productos activar y desactivar su visualizacion 
+        // Función para actualizar el estado y realizar acciones adicionales
+        function updateFeature(value) {
+            search = value;
+            updateVisualizationFeature();
+        }
+
+        // funcion para hacer las operaciones 
+        function updateVisualizationFeature(layerName) {
+            console.log(layerName)
+                // Si la capa ya está en el mapa, la remueve
+
+            if (wmsLayers[layerName]) {
+                map.removeLayer(wmsLayers[layerName]);
+                wmsLayers[layerName] = null; // Limpiar la referencia
+            } else {
+                // Si la capa no está en el mapa, la crea y la agrega
+                wmsLayers[layerName] = L.tileLayer.wms("http://127.0.0.1:8081/geoserver/Manizales/wms?", {
+                    layers: `Manizales:${layerName}`,
+                    format: 'image/png',
+                    transparent: true
+                });
+                wmsLayers[layerName].addTo(map);
+            }
+            /*
+                        if (wfsLayers[layerName]) {
+                            map.removeLayer(wfsLayers[layerName]);
+                            wfsLayers[layerName] = null; // Limpiar la referencia
+                        } else {
+                            // Añade la capa WFS si no está en el mapa
+                            wfsLayers[layerName] = L.Geoserver.wfs("http://localhost:8081/geoserver/wfs", {
+                                layers: `Manizales:${layerName}`,
+                                style: {
+                                    
+                                                            color: "blue",
+                                                            fillOpacity: "0",
+                                                            opacity: "0.5",
+                                                            
+                                    color: "transparent", // Esto hará que la línea sea transparente
+                                    weight: "0", // Esto hará que la línea no tenga grosor
+                                    opacity: "0", // Esto hará que la línea sea completamente opaca
+                                    fill: false // Esto asegura que no hay relleno
+                                },
+                                onEachFeature: function(feature, layer) {
+                                    const diccionario = layer.feature.properties
+                                    featureArray = Object.keys(diccionario)
+                                    var selectOption = document.getElementById("Campo_layer");
+                                    selectOption.innerHTML = "";
+
+                                    const popupContent = generatePopupContent(feature);
+                                    layer.bindPopup(popupContent);
+
+                                }
+                            }).addTo(map);
+                        }*/
+
+        }
+
+
+
+
+
+        // Función para agregar una capa WMS al mapa
+        function addWmsLayer(layerName) {
+
+        }
+
+        // Event listener para la selección de capas de La Celia
+        document.getElementById("laCelia").addEventListener("change", function(event) {
+            // Obtiene el valor del layer seleccionado
+            var layerName = event.target.value;
+
+            // Llama a la función para agregar o remover la capa WMS
+            updateVisualizationFeature(layerName);
         });
     </script>
 </body>
